@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Miniculc;
 
@@ -8,6 +9,7 @@ interface IInput
 {
     List<int> GetInput()
     {
+        ILogger logger = new Logger();
         List<int> nums = [];
         int i = 0;
         while (true)
@@ -19,10 +21,11 @@ interface IInput
                 if (numb == 0) { break; }
                 nums.Add(numb);
                 i++;
+                logger.Event("Number added.");
             }
             catch (Exception e)
             {
-                Console.Write(Environment.NewLine + e.Message + Environment.NewLine);
+                logger.Error(e.Message);
                 continue;
             }
         }
